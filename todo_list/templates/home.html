@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %} 
+      {% if messages %}
+        {% for message in messages %}
+			<div class="alert alert-info alert-dismissible fade show" role="alert">
+			  <strong>{{message}}</strong>
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+        {% endfor %}
+      {% endif %}
+
+{% if all_items %}
+	<table class="table table-bordered">
+		{% for tasks in all_items %}
+		{% if tasks.complete %}
+		<tr>
+			<td class="rooshline">{{tasks.item}}</td>
+			<td><a href="{% url 'edit' tasks.id %}"><button type="button" class="btn btn-outline-secondary btn-block">Edit</button></a></td>
+			<td><center><a href="{% url 'pending' tasks.id %}"><button type="button" class="btn btn-outline-success btn-block">Done</button></a></center></td>
+			<td><center><a href="{% url 'delete' tasks.id %}"><button type="submit" class="btn btn-outline-danger btn-block">Delete</button></a></center></td>
+		</tr>
+		{% else %}
+		<tr>
+			<td>{{tasks.item}}</td>
+			<td><a href="{% url 'edit' tasks.id %}"><button type="button" class="btn btn-outline-secondary btn-block">Edit</button></a>
+			<td><center><a href="{% url 'done' tasks.id %}"><button type="button" class="btn btn-outline-warning btn-block">Pending</button></a></center></td>
+			<td><center><button type="submit" class="btn btn-outline-danger btn-block">Delete</button></center></td>
+		</tr>
+		{%endif%}
+		{%endfor%}
+	</table>
+{%endif%}
+
+
+{% endblock %}
+
+<!-- {% if tasks.complete %}
+<td><center><a href="{% url 'delete' tasks.id %}"><button type="submit" class="btn btn-outline-danger">Delete</button></a></center></td>
+{%else%}
+<td><center><button type="submit" class="btn btn-outline-danger">Delete</button></center></td>
+{%endif%} -->
